@@ -7,6 +7,6 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - name: Parse comment
-              uses: ./.github/workflows/start-carrot-test-from-pr-comment/parse-comment-for-carrot-command/
+              uses: ./.github/workflows/parse-comment-for-carrot-command/
               with:
                 comment-body: ${{ github.event.comment.body }}
