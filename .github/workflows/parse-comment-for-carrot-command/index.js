@@ -15,18 +15,23 @@ try{
         // Set outputs
         core.setOutput("test-name", params[0]);
         core.setOutput("email", params[1]);
+        console.log(`test-name: ${params[0]}`);
+        console.log(`email: ${params[1]}`);
         if(params.length > 2){
             core.setOutput("test-inputs", params[2]);
+            console.log(`test-inputs: ${params[2]}`);
         }
         else{
             core.setOutput("test-inputs", "{}");
         }
         if(params.length > 3){
             core.setOutput("eval-inputs", params[3]);
+            console.log(`eval-inputs: ${params[3]}`);
         }
         else{
             core.setOutput("eval-inputs", "{}");
         }
+
     }
     // If it doesn't match, exit
     else {
