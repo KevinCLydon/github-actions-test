@@ -1,0 +1,28 @@
+name: 'Parse Comment for Carrot Command'
+description: 'Parses a comment to see if it matches the Carrot command format:
+
+    CARROT({test_name}, {email}, {inputs})
+
+    where {test_name} is the unique name of the test, 
+
+    {email} is the email address to notify when the test starts and ends, and
+    
+    {inputs} is an optional json object containing any extra inputs to the test
+    
+    Ex. CARROT(my_cool_test, cool_tester@example.com, {"test_type":"cool"})'
+inputs:
+    comment-body:
+        description: 'The body of the comment to parse'
+        required: true
+outputs:
+    test-name:
+        description: 'The unique name of the test to run'
+    email:
+        description: 'The email address to notify when the test starts and ends'
+    test-inputs:
+        description: 'A json object of inputs to the test wdl for the test'
+    eval-inputs:
+        description: 'A json object of inputs to the eval wdl for the test'
+runs:
+    using: 'node12'
+    main: 'index.js'
