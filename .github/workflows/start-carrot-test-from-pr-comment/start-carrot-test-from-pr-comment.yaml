@@ -1,0 +1,12 @@
+name: start-carrot-test-from-pr-comment
+on: 
+    issue_comment:
+        types: [created]
+jobs:
+    publish-test:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Parse comment
+              uses: ./.github/workflows/start-carrot-test-from-pr-comment/parse-comment-for-carrot-command/
+              with:
+                comment-body: ${{ github.event.comment.body }}
