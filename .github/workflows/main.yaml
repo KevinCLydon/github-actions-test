@@ -6,6 +6,10 @@ jobs:
     publish-test:
         runs-on: ubuntu-18.04
         steps:
+            # To use this repository's private action,
+            # you must check out the repository
+            - name: Checkout
+              uses: actions/checkout@v2
             - name: Parse comment
               uses: ./.github/workflows/parse-comment-for-carrot-command/
               with:
