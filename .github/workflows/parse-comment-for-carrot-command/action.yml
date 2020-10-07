@@ -16,10 +16,21 @@ inputs:
     comment-body:
         description: 'The body of the comment to parse'
         required: true
+    software_name:
+        description: 'The name of the software in this repository, as it is written in the 
+            software record for this repository in the CARROT database'
+        required: true
     github-token:
         description: 'The GitHub token for using the GitHub API.  Generated automatically for the 
             Actions workflow.'
         required: true
+    topic-name:
+        description: 'The Google Cloud PubSub topic name for the topic we will publish the message 
+            to to start the test'
+        required: true
+    sa-key:
+        description: 'The Service Account key JSON for the service account that has publish 
+            permissions for the PubSub topic'
 runs:
     using: 'node12'
     main: 'index.js'

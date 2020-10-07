@@ -1,6 +1,7 @@
 const core = require('@actions/core');
+const fs = require('fs');
 const github = require('@actions/github');
-
+const {PubSub} = require('@google-cloud/pubsub');
 
 try{
     processComment();
@@ -10,7 +11,7 @@ try{
 
 async function processComment() {
     // Get pull request info
-    let pr = github.context.payload["issue"]["pull_request"];
+    const pr = github.context.payload["issue"]["pull_request"];
     // If pr doesn't have a value, this isn't a pull request comment, so we'll return
     if(pr === undefined) {
         console.log("Not a PR comment")
@@ -26,9 +27,24 @@ async function processComment() {
         return;
     }
     // Get the other info we need about the PR via the GitHub API
-    console.log(await getPRInfo(pr["url"]));
+    const prInfo = await getPRInfo(pr["url"]);
+    // Extract the commit hash
+    const commitHash = prInfo["head"]["sha"];
+    // While we're here, get the last bit of info we need: the author of the comment
+    const author = github.context.payload["actor"];
+    // Build the message
+    const message = {
+        "test_name": params["testName"],
+        "test_input_key": params["testInputKey"],
+        "eval_input_key": params["evalInputKey"],
+        "software_name": core.getInput('software-name'),
+        "commit": commitHash,
+        "author": author
+    };
+    // Send the message
+    const messageId = await publishMessage(JSON.stringify(message));
 
-    console.log("test");
+    console.log("Message sent with ID: " + messageId);
 }
 
 // Parses the comment provided in commentBody and returns an object containing testName,
@@ -71,6 +87,7 @@ function parseComment(commentBody) {
     }
 }
 
+// Uses the prUrl to retrieve information about the PR.  Returns a promise containing the info
 async function getPRInfo(prUrl) {
     // Parse owner, repo, and pull_number from prURL so we can get the PR info using octokit
     const splitUrl = prUrl.split("/");
@@ -105,4 +122,32 @@ function getOctokit() {
     }
     // Create octokit
     return github.getOctokit(token);
+}
+
+// Sends the message string to the pubsub topic.
+async function publishMessage(message) {
+    // Setup the environment variable for the SA credentials so PubSub can send the message
+    processSAKey();
+    // Get the topic name from the inputs
+    const topicName = core.getInput('topic-name');
+    // Create the PubSub client to send the message
+    const client = PubSub();
+    // Convert the message to the proper format to send
+    const dataBuffer = Buffer.from(message);
+    // Send the message
+    const messageId = await client.topic(topicName).publish(dataBuffer);
+    // Return the message id
+    return messageId;
+}
+
+// The SA key for the CARROT publish service account needs to be written to a file to be accessed
+// correctly by gcloud pubsub, so we'll put it in a tmp directory and reference it with an
+// environment variable
+function processSAKey() {
+    // Get the SA Key from the inputs
+    const saKey = core.getInput("sa-key");
+    // Write it to a file
+    fs.writeFileSync('/tmp/account.json', saKey, { "encoding": "base64" });
+    // Set the Google environment variable to the file location
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = 'tmp/account.json';
 }
