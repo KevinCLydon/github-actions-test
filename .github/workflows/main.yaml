@@ -14,7 +14,7 @@ jobs:
               uses: ./.github/workflows/parse-comment-for-carrot-command/
               with:
                 comment-body: ${{ github.event.comment.body }}
-                github-token: ${{ github.token }}
+                github-token: ${{ secrets.GITHUB_TOKEN }}
             - name: Dump GitHub context
               env:
                 GITHUB_CONTEXT: ${{ toJson(github) }}

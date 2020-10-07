@@ -18,7 +18,7 @@ inputs:
         required: true
     github-token:
         description: 'The GitHub token for using the GitHub API.  Generated automatically for the 
-            Actions workflow.  Can be accessed with ${{ secrets.GITHUB_TOKEN }}'
+            Actions workflow.'
         required: true
 runs:
     using: 'node12'
