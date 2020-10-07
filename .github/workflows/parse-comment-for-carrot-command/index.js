@@ -42,7 +42,7 @@ async function processComment() {
         "author": author
     };
     // Send the message
-    const messageId = await publishMessage(JSON.stringify(message));
+    const messageId = await publishMessage(JSON.stringify(message)).catch(core.setFailed);
 
     console.log("Message sent with ID: " + messageId);
 }
@@ -131,7 +131,7 @@ async function publishMessage(message) {
     // Get the topic name from the inputs
     const topicName = core.getInput('topic-name');
     // Create the PubSub client to send the message
-    const client = PubSub();
+    const client = new PubSub();
     // Convert the message to the proper format to send
     const dataBuffer = Buffer.from(message);
     // Send the message
