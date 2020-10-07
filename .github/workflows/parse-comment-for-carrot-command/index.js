@@ -3,8 +3,9 @@ const github = require('@actions/github');
 
 
 try{
+    console.log("Context: " + github.context);
     // Get pull request info
-    let pr = github.context.issue.pull_request;
+    let pr = github.context.issue["pull_request"];
     console.log(pr);
     // Get comment body input
     const commentBody = core.getInput('comment-body');
