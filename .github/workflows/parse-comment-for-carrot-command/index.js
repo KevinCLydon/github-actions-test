@@ -71,7 +71,7 @@ function parseComment(commentBody) {
     }
 }
 
-async function getPRInfo(prUrl) {
+function getPRInfo(prUrl) {
     // Parse owner, repo, and pull_number from prURL so we can get the PR info using octokit
     const splitUrl = prUrl.split("/");
     const owner = splitUrl[4];
@@ -85,13 +85,15 @@ async function getPRInfo(prUrl) {
         return;
     }
     // Get the PR info
-    const { data: pullRequest } = await octokit.pulls.get({
+    octokit.pulls.get({
         owner,
         repo,
         pull_number: pullNumber
+    }).then(function(data) {
+        return data;
+    }, function(error) {
+        core.setFailed(error.message);
     });
-
-    console.log(pullRequest);
 }
 
 // Initializes an octokit using the token supplied in the github-token input.  Returns the created
