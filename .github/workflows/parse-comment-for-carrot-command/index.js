@@ -26,7 +26,7 @@ async function processComment() {
         return;
     }
     // Get the other info we need about the PR via the GitHub API
-    console.log(getPRInfo(pr["url"]).await);
+    console.log(await getPRInfo(pr["url"]));
 
     console.log("test");
 }
