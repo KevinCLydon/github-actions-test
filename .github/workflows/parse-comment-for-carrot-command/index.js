@@ -14,7 +14,7 @@ try{
     if(re.test(workingCommentBody)) {
         // Extract params
         workingCommentBody = workingCommentBody.substring(7, workingCommentBody.length-1);
-        const params = splitParams(workingCommentBody);
+        const params = workingCommentBody.split(",");
         const testName = params[0].trim();
         const testInputKey = params[1].trim();
         const evalInputKey = params[2].trim();
