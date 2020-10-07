@@ -16,7 +16,7 @@ inputs:
     comment-body:
         description: 'The body of the comment to parse'
         required: true
-    software_name:
+    software-name:
         description: 'The name of the software in this repository, as it is written in the 
             software record for this repository in the CARROT database'
         required: true
