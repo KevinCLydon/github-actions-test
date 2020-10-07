@@ -147,7 +147,7 @@ function processSAKey() {
     // Get the SA Key from the inputs
     const saKey = core.getInput("sa-key");
     // Write it to a file
-    fs.writeFileSync('/tmp/account.json', saKey, { "encoding": "base64" });
+    fs.writeFileSync('/tmp/account.json', saKey);
     // Set the Google environment variable to the file location
     process.env.GOOGLE_APPLICATION_CREDENTIALS = '/tmp/account.json';
 }
