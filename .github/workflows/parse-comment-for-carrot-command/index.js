@@ -149,5 +149,5 @@ function processSAKey() {
     // Write it to a file
     fs.writeFileSync('/tmp/account.json', saKey, { "encoding": "base64" });
     // Set the Google environment variable to the file location
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = 'tmp/account.json';
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = '/tmp/account.json';
 }
