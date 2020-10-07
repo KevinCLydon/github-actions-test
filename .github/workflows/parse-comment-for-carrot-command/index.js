@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 
 try{
-    console.log("Context: " + github.context);
+    console.log("Context: " + github.context.issue);
     // Get pull request info
     let pr = github.context.issue["pull_request"];
     console.log(pr);
