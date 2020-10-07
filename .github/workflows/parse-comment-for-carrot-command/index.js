@@ -91,7 +91,7 @@ async function getPRInfo(prUrl) {
         pull_number: pullNumber
     });
 
-    console.log(pullRequest);
+    return pullRequest
 }
 
 // Initializes an octokit using the token supplied in the github-token input.  Returns the created
