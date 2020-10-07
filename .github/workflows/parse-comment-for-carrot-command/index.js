@@ -8,7 +8,7 @@ try{
     core.setFailed(error.message);
 }
 
-function processComment() {
+async function processComment() {
     // Get pull request info
     let pr = github.context.payload["issue"]["pull_request"];
     // If pr doesn't have a value, this isn't a pull request comment, so we'll return
@@ -26,7 +26,7 @@ function processComment() {
         return;
     }
     // Get the other info we need about the PR via the GitHub API
-    console.log(getPRInfo(pr["url"]));
+    console.log(getPRInfo(pr["url"]).await);
 
     console.log("test");
 }
@@ -71,7 +71,7 @@ function parseComment(commentBody) {
     }
 }
 
-function getPRInfo(prUrl) {
+async function getPRInfo(prUrl) {
     // Parse owner, repo, and pull_number from prURL so we can get the PR info using octokit
     const splitUrl = prUrl.split("/");
     const owner = splitUrl[4];
@@ -85,15 +85,13 @@ function getPRInfo(prUrl) {
         return;
     }
     // Get the PR info
-    octokit.pulls.get({
+    const { data: pullRequest } = await octokit.pulls.get({
         owner,
         repo,
         pull_number: pullNumber
-    }).then(function(data) {
-        return data;
-    }, function(error) {
-        core.setFailed(error.message);
     });
+
+    console.log(pullRequest);
 }
 
 // Initializes an octokit using the token supplied in the github-token input.  Returns the created
