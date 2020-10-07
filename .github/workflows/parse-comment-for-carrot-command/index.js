@@ -26,7 +26,7 @@ function processComment() {
         return;
     }
     // Get the other info we need about the PR via the GitHub API
-    getPRInfo();
+    console.log(getPRInfo(pr["url"]));
 
     console.log("test");
 }
