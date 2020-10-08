@@ -52,7 +52,7 @@ async function processComment() {
 // format for a CARROT comment
 function parseComment(commentBody) {
     // Check if comment body matches the format for a carrot test command
-    const re = /^CARROT\([^,\s]+,\s*[^,\s]+,\s*[^,\s]+\)$/;
+    const re = /^#carrot\([^,\s]+,\s*[^,\s]*,\s*[^,\s]*\)$/;
     let workingCommentBody = commentBody.trim();
     // If it matches, extract the parameters
     if(re.test(workingCommentBody)) {
@@ -71,6 +71,11 @@ function parseComment(commentBody) {
         // If testName is empty, return
         if(testName.length < 1) {
             console.log("Comment does not have a value for first param: testName");
+            return;
+        }
+        // If both input keys are empty, return
+        if(testInputKey.length < 1 && evalInputKey.length < 1) {
+            console.log("Comment must have a value for one or both of the second and third params");
             return;
         }
         // If we made it this far, return the parsed params object
