@@ -1,0 +1,15 @@
+name: new-start-carrot-test-from-pr-comment
+on: 
+    issue_comment:
+        types: [created]
+jobs:
+    publish-test:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Parse comment
+              uses: actions/carrot-publish-github-action@v0.1.0-alpha
+              with:
+                software-name: github-actions-test
+                github-token: ${{ secrets.GITHUB_TOKEN }}
+                topic-name: ${{ secrets.CARROT_TOPIC_NAME }}
+                sa-key: ${{ secrets.CARROT_SA_KEY }}

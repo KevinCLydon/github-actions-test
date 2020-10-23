@@ -1,0 +1,25 @@
+{
+  "name": "github-actions-test",
+  "version": "1.0.0",
+  "description": "Made this to test triggering carrot jobs from github pr comments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinCLydon/github-actions-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinCLydon/github-actions-test/issues"
+  },
+  "homepage": "https://github.com/KevinCLydon/github-actions-test#readme",
+  "dependencies": {
+    "yargs": "^16.1.0"
+  },
+  "bin": {
+    "github-actions-test": "./index.js"
+  }
+}
