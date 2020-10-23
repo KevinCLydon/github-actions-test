@@ -13,3 +13,7 @@ jobs:
                 github-token: ${{ secrets.GITHUB_TOKEN }}
                 topic-name: ${{ secrets.CARROT_TOPIC_NAME }}
                 sa-key: ${{ secrets.CARROT_SA_KEY }}
+            - name: Dump GitHub context
+              env:
+                GITHUB_CONTEXT: ${{ toJson(github) }}
+              run: echo "$GITHUB_CONTEXT"
