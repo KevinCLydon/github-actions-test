@@ -1,4 +1,4 @@
-name: new-start-carrot-test-from-pr-comment
+name: start-carrot-test-from-pr-comment
 on: 
     issue_comment:
         types: [created]
@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - name: Parse comment
-              uses: actions/carrot-publish-github-action@v0.1.0-alpha
+              uses: broadinstitute/carrot-publish-github-action@v0.1.0-alpha
               with:
                 software-name: github-actions-test
                 github-token: ${{ secrets.GITHUB_TOKEN }}
