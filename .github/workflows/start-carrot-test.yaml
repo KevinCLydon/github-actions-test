@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-18.04
         steps:
             - name: Parse comment
-              uses: broadinstitute/carrot-publish-github-action@delete_this_release
+              uses: broadinstitute/carrot-publish-github-action@13a35b9290a5a32e4d5e60f12fdea9194d0bf6af
               with:
                 software-name: github-actions-test
                 github-token: ${{ secrets.GITHUB_TOKEN }}
