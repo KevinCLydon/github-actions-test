@@ -4,10 +4,10 @@ on:
         types: [created]
 jobs:
     publish-test:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-20.04
         steps:
             - name: Parse comment
-              uses: broadinstitute/carrot-publish-github-action@13a35b9290a5a32e4d5e60f12fdea9194d0bf6af
+              uses: broadinstitute/carrot-publish-github-action@c0ce660e43871c68fb0b8eb5f598d460d24b62d7
               with:
                 software-name: github-actions-test
                 github-token: ${{ secrets.GITHUB_TOKEN }}
